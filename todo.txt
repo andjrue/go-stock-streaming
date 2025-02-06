@@ -1,0 +1,29 @@
+### How we're going to do it ###
+
+I am actually going to finish this project. 
+
+I'm going to use a pub/sub design pattern to make this possible. We'll open a websocket connection
+w/ Finnhub. I think it would be cool for someone to enter multiple tickers to get information from them,
+but for now it's only going to be AAPL. 
+
+Once the websocket is open, we're going to use a publisher to read messages from the websocket. 
+We'll probably need a "FinnhubResponse" struct that we can unmarshal the data into. From there, 
+we can send the message into an "updates" channel, which will act as the publisher. 
+
+We can then have another goroutine (or multiple) read from the update channel. They will then be sent 
+to a dashboard (probably in the terminal) which we built using bubbletea (maybe?). 
+
+Because of the design, we can do everything concurrently. I don't know if I'll update things every second
+or if I want it to be uniterrupted streaming. Personally, I'd prefer uniterrupted just to see how 
+Go handles it. I've seen programs that are able to process 10MM messages in under a second. Given how much 
+smaller this will be I think we can make it work. 
+
+### TO-DO ###
+
+1.) Get the structs set update 
+    -> DONE
+2.) Set up a sample connection to Finnhub   
+    -> DONE, I think the quotes API is the best one to use here. 
+3.) Set up the goroutine that will handle the websocket. 
+4.) Set up the goroutine that will act as the publisher
+5.) Set up the UI
