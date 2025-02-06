@@ -29,6 +29,6 @@ func GetQuote(symbol string) (*finnhub.Quote, error) {
 	if err != nil {
 		return nil, fmt.Errorf("error fetching quote for %s: %v", symbol, err)
 	}
-	fmt.Printf("Response: %v\n", &res)
+	// fmt.Printf("Response: %v\n", &res) WORKING
 	return &res, nil
 }
